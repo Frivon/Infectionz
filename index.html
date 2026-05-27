@@ -350,6 +350,85 @@
   <!-- BOOTSTRAP JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+  <script type="module">
+
+  // IMPORTS FIREBASE
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+  import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  // CONFIG FIREBASE
+  const firebaseConfig = {
+
+    apiKey: "SUA_API_KEY",
+    authDomain: "SEU_PROJETO.firebaseapp.com",
+    projectId: "SEU_PROJECT_ID",
+    storageBucket: "SEU_BUCKET",
+    messagingSenderId: "SEU_SENDER_ID",
+    appId: "SEU_APP_ID"
+
+  };
+
+  // INICIAR FIREBASE
+  const app = initializeApp(firebaseConfig);
+
+  const auth = getAuth(app);
+
+  // PEGAR FORMULÁRIO
+  const form = document.getElementById("loginForm");
+
+  form.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+
+    const senha = document.getElementById("senha").value;
+
+    try {
+
+      // LOGIN
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        senha
+      );
+
+      alert("Login realizado com sucesso!");
+
+      console.log(userCredential.user);
+
+    } catch (error) {
+
+      // SE NÃO EXISTIR, CRIA CONTA
+      try {
+
+        const newUser = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          senha
+        );
+
+        alert("Conta criada com sucesso!");
+
+        console.log(newUser.user);
+
+      } catch (err) {
+
+        alert(err.message);
+
+      }
+
+    }
+
+  });
+
+</script>
+
 </body>
 
 </html>
