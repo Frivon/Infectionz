@@ -87,6 +87,7 @@
       background:linear-gradient(135deg,#ff0000,#8b0000);
       color:white;
       font-weight:700;
+      cursor:pointer;
     }
   </style>
 
@@ -101,7 +102,6 @@
       <p>ENTRAR NO SISTEMA</p>
     </div>
 
-    <!-- FORM -->
     <form id="loginForm">
 
       <div class="input-box">
@@ -122,7 +122,7 @@
 
   </div>
 
-  <!-- FIREBASE -->
+  <!-- FIREBASE SCRIPT CORRIGIDO -->
   <script type="module">
 
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -132,14 +132,14 @@
       signInWithEmailAndPassword
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-    // 🔥 CONFIG FIREBASE (SUBSTITUA AQUI)
+    // 🔥 CONFIG REAL DO SEU FIREBASE
     const firebaseConfig = {
-      apiKey: "SUA_API_KEY",
-      authDomain: "SEU_PROJETO.firebaseapp.com",
-      projectId: "SEU_PROJECT_ID",
-      storageBucket: "SEU_BUCKET",
-      messagingSenderId: "SEU_SENDER_ID",
-      appId: "SEU_APP_ID"
+      apiKey: "AIzaSyAGnFnfpcZWHC8mXwqnyNmdR-mYuWmCmRc",
+      authDomain: "infectionz-3f599.firebaseapp.com",
+      projectId: "infectionz-3f599",
+      storageBucket: "infectionz-3f599.firebasestorage.app",
+      messagingSenderId: "280415727281",
+      appId: "1:280415727281:web:64c2fd86589e248c9c7c90"
     };
 
     const app = initializeApp(firebaseConfig);
@@ -165,7 +165,7 @@
       } catch (error) {
 
         try {
-          // 🆕 CRIAR CONTA SE NÃO EXISTIR
+          // 🆕 CRIAR CONTA AUTOMATICAMENTE
           const newUser = await createUserWithEmailAndPassword(auth, email, senha);
 
           alert("Conta criada com sucesso!");
