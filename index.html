@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Login Dark Red</title>
+  <title>Login Infection Z</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -17,6 +17,7 @@
   rel="stylesheet">
 
   <style>
+
     *{
       margin:0;
       padding:0;
@@ -89,6 +90,12 @@
       font-weight:700;
       cursor:pointer;
     }
+
+    #btnCadastro{
+      margin-top:10px;
+      background:linear-gradient(135deg,#00c853,#006b2d);
+    }
+
   </style>
 
 </head>
@@ -102,6 +109,7 @@
       <p>ENTRAR NO SISTEMA</p>
     </div>
 
+    <!-- FORM -->
     <form id="loginForm">
 
       <div class="input-box">
@@ -114,15 +122,19 @@
         <i class="fa-solid fa-lock"></i>
       </div>
 
-      <button class="btn-login" type="submit">
+      <button class="btn-login" type="button" id="btnLogin">
         ENTRAR
+      </button>
+
+      <button class="btn-login" type="button" id="btnCadastro">
+        CRIAR CONTA
       </button>
 
     </form>
 
   </div>
 
-  <!-- FIREBASE SCRIPT CORRIGIDO -->
+  <!-- FIREBASE -->
   <script type="module">
 
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -132,7 +144,7 @@
       signInWithEmailAndPassword
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-    // 🔥 CONFIG REAL DO SEU FIREBASE
+    // 🔥 CONFIG FIREBASE (SEU PROJETO)
     const firebaseConfig = {
       apiKey: "AIzaSyAGnFnfpcZWHC8mXwqnyNmdR-mYuWmCmRc",
       authDomain: "infectionz-3f599.firebaseapp.com",
@@ -145,17 +157,20 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    const form = document.getElementById("loginForm");
+    const email = document.getElementById("email");
+    const senha = document.getElementById("senha");
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
+    const btnLogin = document.getElementById("btnLogin");
+    const btnCadastro = document.getElementById("btnCadastro");
 
-      const email = document.getElementById("email").value;
-      const senha = document.getElementById("senha").value;
-
+    // 🔐 LOGIN
+    btnLogin.addEventListener("click", async () => {
       try {
-        // 🔐 LOGIN
-        const user = await signInWithEmailAndPassword(auth, email, senha);
+        const user = await signInWithEmailAndPassword(
+          auth,
+          email.value,
+          senha.value
+        );
 
         alert("Login realizado com sucesso!");
         console.log(user.user);
@@ -163,17 +178,24 @@
         window.location.href = "dashboard.html";
 
       } catch (error) {
+        alert("Erro no login: " + error.message);
+      }
+    });
 
-        try {
-          // 🆕 CRIAR CONTA AUTOMATICAMENTE
-          const newUser = await createUserWithEmailAndPassword(auth, email, senha);
+    // 🆕 CADASTRO
+    btnCadastro.addEventListener("click", async () => {
+      try {
+        const user = await createUserWithEmailAndPassword(
+          auth,
+          email.value,
+          senha.value
+        );
 
-          alert("Conta criada com sucesso!");
-          console.log(newUser.user);
+        alert("Conta criada com sucesso!");
+        console.log(user.user);
 
-        } catch (err) {
-          alert("Erro: " + err.message);
-        }
+      } catch (error) {
+        alert("Erro no cadastro: " + error.message);
       }
     });
 
