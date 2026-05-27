@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Login Infection Z</title>
+  <title>Login Dark Red</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -89,10 +89,10 @@
       color:white;
       font-weight:700;
       cursor:pointer;
+      margin-top:10px;
     }
 
     #btnCadastro{
-      margin-top:10px;
       background:linear-gradient(135deg,#00c853,#006b2d);
     }
 
@@ -106,10 +106,9 @@
 
     <div class="login-title">
       <h1><i class="fa-solid fa-user-secret"></i> LOGIN</h1>
-      <p>ENTRAR NO SISTEMA</p>
+      <p>ENTRAR NO SISTEMA INFECTIONZ</p>
     </div>
 
-    <!-- FORM -->
     <form id="loginForm">
 
       <div class="input-box">
@@ -144,7 +143,7 @@
       signInWithEmailAndPassword
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-    // 🔥 CONFIG FIREBASE (SEU PROJETO)
+    // 🔥 SEU FIREBASE CONFIG
     const firebaseConfig = {
       apiKey: "AIzaSyAGnFnfpcZWHC8mXwqnyNmdR-mYuWmCmRc",
       authDomain: "infectionz-3f599.firebaseapp.com",
@@ -173,8 +172,6 @@
         );
 
         alert("Login realizado com sucesso!");
-        console.log(user.user);
-
         window.location.href = "dashboard.html";
 
       } catch (error) {
@@ -182,7 +179,7 @@
       }
     });
 
-    // 🆕 CADASTRO
+    // 🆕 CADASTRO + REDIRECIONAMENTO
     btnCadastro.addEventListener("click", async () => {
       try {
         const user = await createUserWithEmailAndPassword(
@@ -192,7 +189,10 @@
         );
 
         alert("Conta criada com sucesso!");
-        console.log(user.user);
+
+        if (user.user) {
+          window.location.href = "dashboard.html";
+        }
 
       } catch (error) {
         alert("Erro no cadastro: " + error.message);
